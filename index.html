@@ -266,11 +266,11 @@
           };
           
           var rootParams = {
-            from: moment().subtract(30, 'days'),
+            from: moment().subtract(31, 'days'),
             to: moment(),
             type: 'unique',
-            interval: 31,
-            where:'(string(properties["$current_url"]) == "' + rootProp.slice( 0, rootProp.indexOf('?') ) + '")'
+            interval: 32,
+            where: '(string(properties["$current_url"]) == "' + rootProp.slice( 0, rootProp.indexOf('?') ) + '")'
         };
           /* Find the Root Event Count */
           var rootEventCount = MP.api.segment(rootEvent,rootParams);
