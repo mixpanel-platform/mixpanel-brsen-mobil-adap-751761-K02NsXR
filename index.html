@@ -233,14 +233,14 @@
                   if (conversion < 2 ) { return };
                   if (node.children) {
                       node.children.push({
-                        'name': event,
+                        'name': key,
                         'root': root,
                         'conversion': conversion,
                         'count':nodes[key]
                       });
                   } else {
                       node.children = [{
-                        'name':key,
+                        'name': key,
                         'root': root,
                         'conversion': conversion,
                         'count':nodes[key]
