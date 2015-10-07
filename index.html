@@ -209,9 +209,10 @@
 
             Promise.all(promises).then(function(promiseArray){
               /* promiseArray is a list of funnel responses */
+              debugger
               _.each(promiseArray, function(data){
                   /* data is a list of the funnel steps */
-                  
+                 
                   var total = 0;
                   var length = data.length - 1;
                   _.each(_.values(data[length]), function(funnelObj){ total += funnelObj.count });
@@ -222,8 +223,8 @@
                 
               });
             }).then(function(){
-              
-               _.each(_.keys(nodes), function(key){
+              debugger
+              _.each(_.keys(nodes), function(key){
                  /*
                     Build a node object with the conversion percentage and other meta data and add it to the children
                     of the parent node
