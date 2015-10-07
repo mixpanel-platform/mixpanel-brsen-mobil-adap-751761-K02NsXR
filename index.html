@@ -280,10 +280,7 @@
           var rootEventCount = MP.api.segment(rootEvent,rootParams);
           
           $.when(rootEventCount).done(function(eventCount){
-              debugger
-              var eventTotal = 0;
-              _.each(_.values(eventCount[0]), function(count){ eventTotal += count.count});
-              graphData.count = eventTotal;
+              graphData.count = eventCount.sum().values()[rootEvent];
               addNode(graphData);
           });
         });
