@@ -216,28 +216,9 @@
               }
               selector_str = '(string(properties["$current_url"]) == "' + event + '")';
               events.push({'event': 'pageview', 'selector': selector_str });
-              // if (true) {
-              //     debugger;
-                  
-                  
-              //     /* First Funnel Step */
-              //     /* Second Funnel Step.  They're currently on the current URL, but they came from a page in our prop list */
-              //     /* Double check to reduce the url params string */
-              //     selector_str = '(string(properties["$current_url"]) == "' + event + '") and "' + referrer.name.slice( 0, referrer.name.indexOf('?') ) + '" in string(properties["$referrer"])'
-              //     events.push({'event': 'pageview', 'selector': selector_str });
-                  
-              //   while (parent) {
-              //       selector_str = '("'+ parent.name + '" in string(properties["$referrer"]) and (string(properties["$current_url"] =="' + referrer.name.slice(0, refferer.name.indexOf('?')) + '")))'
-                    
-              //       events.push({'event': 'pageview', 'selector': selector_str});
-              //       referrer = parent
-              //       parent = parent.parent
-              //   }
-                
-              //   events.reverse()
-              //   events.push(params)
-              //   promises.push(MP.api.funnel.apply(MP.api, events));
-              // }
+              events.reverse()
+              events.push(params)
+              promises.push(MP.api.funnel.apply(MP.api, events));
             });
 
             Promise.all(promises).then(function(promiseArray){
