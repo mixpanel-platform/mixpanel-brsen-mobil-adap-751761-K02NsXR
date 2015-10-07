@@ -209,7 +209,6 @@
 
             Promise.all(promises).then(function(promiseArray){
               /* promiseArray is a list of funnel responses */
-              debugger
               _.each(promiseArray, function(data){
                   /* data is a list of the funnel steps */
                  
@@ -224,7 +223,6 @@
                   };
               });
             }).then(function(){
-              debugger
               _.each(_.keys(nodes), function(key){
                  /*
                     Build a node object with the conversion percentage and other meta data and add it to the children
@@ -232,7 +230,7 @@
                  */
                   var conversion = Math.floor(nodes[key]['conversion'] * 100);
                   var root = Math.floor(nodes[key]['total'] / graphData.count * 100);
-                  if (conversion < 2 ) { return };
+                  if (conversion < 1 ) { return };
                   if (node.children) {
                       node.children.push({
                         'name': key,
