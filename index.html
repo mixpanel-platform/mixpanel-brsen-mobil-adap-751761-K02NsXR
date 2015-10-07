@@ -49,8 +49,8 @@
       <div style="clear: both;"></div>
       <button id="run" value="Run" style="display: none;">Run</button>
     <script>
-        var params = {
-        from: moment().subtract(10, 'days'),
+      var params = {
+        from: moment().subtract(30, 'days'),
         to: moment(),
         length: 14,
         limit: 200,
@@ -255,7 +255,7 @@
     
         $('#run').on('click', function(e){
           var rootProp = $('#eventSelect').MPSelect('value')
-          var rootEvent = { event: "pageview", selector: '(string(properties["$current_url"]) == "' + rootProp.slice( 0, rootProp.indexOf('?') ) + '")'}
+          var rootEvent = { event: "pageview", selector:}
           
           /* This Event Represents the Origin of the User Flow Diagram. */
           
@@ -264,9 +264,17 @@
             'name': rootProp,
             'id': 1,
           };
-
+          var params = {
+            from: moment().subtract(30, 'days'),
+            to: moment(),
+            limit: 100,
+            type: 'unique',
+            unit: 'day',
+            interval: 30,
+            where:'(string(properties["$current_url"]) == "' + rootProp.slice( 0, rootProp.indexOf('?') ) + '")'
+        };
           /* Find the Root Event Count */
-          var rootEventCount = MP.api.funnel([rootEvent, rootEvent], params);
+          var rootEventCount = MP.api.segment(rootEvent, params);
           
           $.when(rootEventCount).done(function(eventCount){
               debugger
