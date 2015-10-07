@@ -220,7 +220,7 @@
                   events.push({'event': 'pageview', 'selector': selector_str });
                   /* Second Funnel Step.  They're currently on the current URL, but they came from a page in our prop list */
                   /* Double check to reduce the url params string */
-                  selector_str = '(string(properties["$current_url"]) == "' + referrer.name + '") and "' + event.slice( 0, event.indexOf('?'') ) + '" in string(properties["$referrer"])'
+                  selector_str = '(string(properties["$current_url"]) == "' + referrer.name + '") and "' + event.slice( 0, event.indexOf('?') ) + '" in string(properties["$referrer"])'
                   events.push({'event': 'pageview', 'selector': selector_str });
                   
                 while (parent) {
@@ -290,7 +290,7 @@
     
         $('#run').on('click', function(e){
           var rootProp = $('#eventSelect').MPSelect('value')
-          var rootEvent = { event: "pageview", selector: '(string(properties["Url"]) == "' + rootProp + '")'}
+          var rootEvent = { event: "pageview", selector: '(string(properties["$current_url"]) == "' + rootProp.slice( 0, rootProp.indexOf('?') ) + '")'}
           /* This Event Represents the Origin of the User Flow Diagram. */
           
           graphData = {
