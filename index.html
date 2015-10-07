@@ -47,7 +47,7 @@
       <div id="eventSelect" style="float: left;"></div>
       <div id="dateRange" style="float: right;"></div>
       <div style="clear: both;"></div>
-      <button id="run" value="Run" style="margin-left: 10px;">Run</button>
+      <button id="run" value="Run" style="display: none;">Run</button>
     <script>
         var params = {
         from: moment().subtract(10, 'days'),
@@ -88,7 +88,7 @@
           /* Sort Items */
           options['items'] = _.sortBy(items, 'label');
           var dropdown = $('#eventSelect').MPSelect(options);
-          
+          $('#run').show;
         });
         
         
