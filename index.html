@@ -99,7 +99,6 @@
         /* Global Event List */
         var rootEvent;
         
-        var ids = new Set();
         var graphData = {}
 
 
@@ -173,7 +172,7 @@
               var count = 'Count: ' + String(d.count) + '\n';
               var parent = 'Conversion to the Parent Event: ' + String(d.conversion) + '%\n';
               var root = 'Conversion From Root Event: ' + String(d.root) + '%';
-              return count + parent});
+              return count +  parent + root});
           node.append("circle")
               .attr("r", 4.5);
 
