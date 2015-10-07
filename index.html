@@ -216,10 +216,12 @@
                   var total = 0;
                   var length = data.length - 1;
                   _.each(_.values(data[length]), function(funnelObj){ total += funnelObj.count });
-                  nodes[objs[promiseArray.indexOf(data)]] = {};
-                  nodes[objs[promiseArray.indexOf(data)]]['total'] = total
-                  nodes[objs[promiseArray.indexOf(data)]]['conversion'] = data[length][_.keys(data[length])[0]]['overall_conv_ratio']
-                
+                  var name = objs[promiseArray.indexOf(data)]
+                  nodes[name] = {
+                    'total' : total,
+                    'name' : name,
+                    'conversion' : data[length][_.keys(data[length])[0]]['overall_conv_ratio']
+                  };
               });
             }).then(function(){
               debugger
