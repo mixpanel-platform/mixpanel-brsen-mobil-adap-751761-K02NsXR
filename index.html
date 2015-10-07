@@ -264,6 +264,7 @@
             'name': rootProp,
             'id': 1,
           };
+          
           var rootParams = {
             from: moment().subtract(30, 'days'),
             to: moment(),
@@ -273,7 +274,7 @@
             where:'(string(properties["$current_url"]) == "' + rootProp.slice( 0, rootProp.indexOf('?') ) + '")'
         };
           /* Find the Root Event Count */
-          var rootEventCount = MP.api.segment(rootEvent, '',rootParams);
+          var rootEventCount = MP.api.segment(rootEvent,rootParams);
           
           $.when(rootEventCount).done(function(eventCount){
               debugger
