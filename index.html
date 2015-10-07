@@ -176,7 +176,7 @@
           node.append("text")
               .attr("dx", function(d) { return d.children ? 0 : 8; })
               .attr("dy", function(d) { return d.children ? 18 : 3; })
-              .text(function(d) { return d.eventName; })
+              .text(function(d) { return d.name; })
               .attr("text-anchor", function(d){
                 return ( d.children ? "middle" : undefined );
               });
@@ -230,22 +230,22 @@
                     Build a node object with the conversion percentage and other meta data and add it to the children
                     of the parent node
                  */
-                  var conversion = Math.floor(nodes[key] / node.count * 100);
-                  var root = Math.floor(nodes[key] / graphData.count * 100);
+                  var conversion = Math.floor(nodes[key]['conversion'] * 100);
+                  var root = Math.floor(nodes[key]['total'] / graphData.count * 100);
                   if (conversion < 2 ) { return };
                   if (node.children) {
                       node.children.push({
                         'name': key,
                         'root': root,
                         'conversion': conversion,
-                        'count':nodes[key]
+                        'count': nodes[key]['total']
                       });
                   } else {
                       node.children = [{
                         'name': key,
                         'root': root,
                         'conversion': conversion,
-                        'count':nodes[key]
+                        'count': nodes[key]['total']
                       }];
                   }
                })
