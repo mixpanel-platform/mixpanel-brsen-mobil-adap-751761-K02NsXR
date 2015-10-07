@@ -268,9 +268,8 @@
           var rootParams = {
             from: moment().subtract(30, 'days'),
             to: moment(),
-            limit: 100,
             type: 'unique',
-            interval: 30,
+            interval: 31,
             where:'(string(properties["$current_url"]) == "' + rootProp.slice( 0, rootProp.indexOf('?') ) + '")'
         };
           /* Find the Root Event Count */
