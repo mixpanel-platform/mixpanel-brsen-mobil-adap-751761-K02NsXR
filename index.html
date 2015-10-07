@@ -47,7 +47,7 @@
       <div id="eventSelect" style="float: left;"></div>
       <div id="dateRange" style="float: right;"></div>
       <div style="clear: both;"></div>
-      <button id="run" value="Run" style="margin-left: 10px; display: none;">Run</button>
+      <button id="run" value="Run" style="margin-left: 10px;">Run</button>
     <script>
     
       function toTitleCase(str)
@@ -99,10 +99,6 @@
           options['items'] = _.sortBy(items, 'label');
           
           var dropdown = $('#eventSelect').MPSelect(options);
-          
-          dropdown.on('change', function(e, selection) {                      
-              $('#run').show();
-          });
           
         });
         
@@ -208,33 +204,40 @@
             
             _.each(_.keys(propList), function(key) {
               var event = propList[key];
-              var parent = node.parent;
+              var parent = node;
               var selector_str;
               var events = [];
-              var referrer = node;
-              if (true) {
-                debugger;
-                  selector_str = '(string(properties["$current_url"]) == "' + event.slice( 0, event.indexOf('?') ) + '")'
-                  
-                  /* First Funnel Step */
-                  events.push({'event': 'pageview', 'selector': selector_str });
-                  /* Second Funnel Step.  They're currently on the current URL, but they came from a page in our prop list */
-                  /* Double check to reduce the url params string */
-                  selector_str = '(string(properties["$current_url"]) == "' + referrer.name + '") and "' + event.slice( 0, event.indexOf('?') ) + '" in string(properties["$referrer"])'
-                  events.push({'event': 'pageview', 'selector': selector_str });
-                  
-                while (parent) {
-                    selector_str = '("'+ referrer.name + '" in string(properties["$referrer"]) and (string(properties["$current_url"] =="' + parent.name.slice(0, parent.name.indexOf('?')) + '")))'
-                    
-                    events.push({'event': 'pageview', 'selector': selector_str});
-                    referrer = parent
-                    parent = parent.parent
-                }
-                
-                events.push(params)
-                events.reverse()
-                promises.push(MP.api.funnel.apply(MP.api, events));
+              debugger
+              while (parent){
+                selector_str = '(string(properties["$current_url"]) == "' + event + '") and "' + parent.name.slice( 0, parent.name.indexOf('?') ) + '" in string(properties["$referrer"])';
+                events.push({'event': 'pageview', 'selector': selector_str });
+                event = parent.name
+                parent = parent.parent
               }
+              selector_str = '(string(properties["$current_url"]) == "' + event + '")';
+              events.push({'event': 'pageview', 'selector': selector_str });
+              // if (true) {
+              //     debugger;
+                  
+                  
+              //     /* First Funnel Step */
+              //     /* Second Funnel Step.  They're currently on the current URL, but they came from a page in our prop list */
+              //     /* Double check to reduce the url params string */
+              //     selector_str = '(string(properties["$current_url"]) == "' + event + '") and "' + referrer.name.slice( 0, referrer.name.indexOf('?') ) + '" in string(properties["$referrer"])'
+              //     events.push({'event': 'pageview', 'selector': selector_str });
+                  
+              //   while (parent) {
+              //       selector_str = '("'+ parent.name + '" in string(properties["$referrer"]) and (string(properties["$current_url"] =="' + referrer.name.slice(0, refferer.name.indexOf('?')) + '")))'
+                    
+              //       events.push({'event': 'pageview', 'selector': selector_str});
+              //       referrer = parent
+              //       parent = parent.parent
+              //   }
+                
+              //   events.reverse()
+              //   events.push(params)
+              //   promises.push(MP.api.funnel.apply(MP.api, events));
+              // }
             });
 
             Promise.all(promises).then(function(promiseArray){
@@ -308,26 +311,6 @@
               graphData.count = eventTotal;
               addNode(graphData);
           });
-          
-          
-          /*
-            var topEventsParams = {'limit':'30'};
-            var topEvents = MP.api.topEvents(topEventsParams);
-          */
-
-          /* Find Top URLS for ESPN's Page View Event 
-          
-          var pageViewValueParams = {
-              limit: 5
-          };
-          
-          var pageViewProps = MP.api.propertyValues('Page View', 'Url', pageViewValueParams)
-          
-          $.when(pageViewProps).done(function(props){
-              objs = props.values();
-          });
-          */
-          
         });
        });
     </script>
